@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Services\" />
     <Folder Include="Persistence\" />
     <Folder Include="View\Professeur\" />

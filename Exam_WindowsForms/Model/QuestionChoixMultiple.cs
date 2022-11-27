@@ -2,5 +2,7 @@
 
 public class QuestionChoixMultiple: Question
 {
-    private List<Proposition> propositions;
+    public Exam Exam { get; set; }
+    public List<Proposition> propositions { get; set; }
+
 }

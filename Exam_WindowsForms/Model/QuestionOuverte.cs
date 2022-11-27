@@ -2,5 +2,6 @@
 
 public class QuestionOuverte: Question
 {
-
+    public Exam Exam { get; set; }
+    public string Reponse { get; set; }
 }

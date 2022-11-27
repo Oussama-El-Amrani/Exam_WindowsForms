@@ -2,5 +2,5 @@
 
 public class Certitude
 {
-
+    public QuestionChoixMultiple QCM { get; set; }
 }

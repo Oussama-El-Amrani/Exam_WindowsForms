@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Persistence\" />
     <Folder Include="View\Professeur\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
 </Project>

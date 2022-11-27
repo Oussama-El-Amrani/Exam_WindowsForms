@@ -2,9 +2,9 @@
 
 public class Proposition
 {
-    public long Id { get; set; }
+    public long PropositionId { get; set; }
     public bool Vrai { get; set; }
     public string Contenu { get; set; }
-    public int Index { get; set; }
+    public QuestionChoixMultiple QCM { get; set; }
     public Certitude Certitude { get; set; }
 }

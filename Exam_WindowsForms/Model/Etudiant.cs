@@ -2,8 +2,9 @@
 
 public class Etudiant
 {
-    public long Id { get; set; }
-    public string NomCompet { get; set; }
+    public long EtudiantId { get; set; }
+    public string NomComplet { get; set; }
     public string Cne { get; set; }
-    public Dictionary<string,double> ExamsNote { get; set; }
+    public string Email { get; set; }
+    public Dictionary<Exam,double> ExamsNote { get; set; }
 }

@@ -2,8 +2,8 @@
 
 public abstract class Question
 {
-    public long Id { get; set; }
-    public char index { get; }
+    public long QuestionId { get; set; }
     public string Enonce { get; set; }
-
+    public int nombrePoint { get; set; }
+    
 }

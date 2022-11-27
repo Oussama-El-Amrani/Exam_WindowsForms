@@ -10,20 +10,19 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
     private static readonly string GET_ONE =
         "SELECT QCM.enonce,QCM.nombrePoint, " +
         "QCM.questionId,p.propositionId " +
-        "ex.examId "+
+        "examId " +
         "FROM QuestionChoixMultiple AS QCM, " +
-        "Proposition AS p , Exam As ex" +
+        "Proposition AS p " +
         "WHERE QCM.questionId = @qcmId " +
-        "AND QCM.questionId = p.questionId " +
-        "And ex.examId = QCM.examId";
+        "AND QCM.questionId = p.questionId ";
+
     private static readonly string GET_ALL =
         "SELECT QCM.enonce,QCM.nombrePoint, " +
         "QCM.questionId,p.propositionId " +
-        "ex.examId " +
+        "examId " +
         "FROM QuestionChoixMultiple AS QCM, " +
-        "Proposition AS p , Exam As ex " +
-        "WHERE QCM.questionId = p.questionId " +
-        "And ex.examId = QCM.examId";
+        "Proposition AS p " +
+        "WHERE QCM.questionId = p.questionId ";
     private static readonly string INSERT =
         "INSERT INTO Poposition(vrai,Contenu,questionId) " +
         "VALUES(@vrai,@Contenu,@questionId)";
@@ -56,17 +55,17 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
             {
                 if (qcmId == 0)
                 {
-                    qcmId = sqlDataReader.GetInt32("QCM.questionId");
+                    qcmId = sqlDataReader.GetInt32(2);
                     qcm.QuestionId = qcmId;
-                    qcm.Enonce = sqlDataReader.GetString("QCM.enonce");
-                    qcm.nombrePoint = sqlDataReader.GetInt32("QCM.nombrePoint");
-                    long examId = sqlDataReader.GetInt32("ex.examId");
+                    qcm.Enonce = sqlDataReader.GetString(0);
+                    qcm.nombrePoint = sqlDataReader.GetInt32(1);
+                    long examId = sqlDataReader.GetInt32(4);
                     ExamDAO examDAO = new ExamDAO(this.Connection);
                     qcm.Exam = examDAO.findById(examId);
                     qcm.propositions = propositions;
                 }
 
-                long propositionId = sqlDataReader.GetInt32("p.propositionId");
+                long propositionId = sqlDataReader.GetInt32(3);
                 PropositionDAO propositionDAO = new PropositionDAO(this.Connection);
                 Proposition proposition = propositionDAO.findById(propositionId);
                 propositions.Add(proposition);
@@ -90,16 +89,16 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
             QuestionChoixMultiple qcm = null;
             while (sqlDataReader.Read())
             {
-                long localQcm = sqlDataReader.GetInt32("QCM.questionId");
+                long localQcm = sqlDataReader.GetInt32(2);
                 if (localQcm != qcmId)
                 {
                     qcm = new QuestionChoixMultiple();
                     qcms.Add(qcm);
                     qcmId = localQcm;
                     qcm.QuestionId = qcmId;
-                    qcm.Enonce = sqlDataReader.GetString("QCM.enonce");
-                    qcm.nombrePoint = sqlDataReader.GetInt32("QCM.nombrePoint");
-                    long examId = sqlDataReader.GetInt32("ex.examId");
+                    qcm.Enonce = sqlDataReader.GetString(0);
+                    qcm.nombrePoint = sqlDataReader.GetInt32(1);
+                    long examId = sqlDataReader.GetInt32(4);
                     ExamDAO examDAO = new ExamDAO(this.Connection);
                     qcm.Exam = examDAO.findById(examId);
 
@@ -107,7 +106,7 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
                     qcm.propositions = propositions;
                 }
 
-                long propositionId = sqlDataReader.GetInt32("p.propositionId");
+                long propositionId = sqlDataReader.GetInt32(3);
                 PropositionDAO propositionDao = new PropositionDAO(this.Connection);
                 Proposition proposition = propositionDao.findById(propositionId);
                 

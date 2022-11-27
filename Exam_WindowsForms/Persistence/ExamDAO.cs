@@ -94,7 +94,6 @@ public class ExamDAO : DataAccessObject<Exam>
             Connection.Close();
             return exam;
         }
-        throw new NotImplementedException();
     }
 
     public override List<Exam> findAll()

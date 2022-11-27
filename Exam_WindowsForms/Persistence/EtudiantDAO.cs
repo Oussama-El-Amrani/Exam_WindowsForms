@@ -15,7 +15,7 @@ public class EtudiantDAO : DataAccessObject<Etudiant>
         throw new NotImplementedException();
     }
 
-    public override List<Etudiant> findAll(long id)
+    public override List<Etudiant> findAll()
     {
         throw new NotImplementedException();
     }

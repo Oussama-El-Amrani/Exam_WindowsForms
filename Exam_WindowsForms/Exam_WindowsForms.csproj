@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="View\Professeur\" />
   </ItemGroup>
 
   <ItemGroup>

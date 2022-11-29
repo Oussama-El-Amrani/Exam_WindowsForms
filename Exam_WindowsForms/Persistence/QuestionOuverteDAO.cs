@@ -8,8 +8,9 @@ namespace Exam_WindowsForms.Persistence;
 public class QuestionOuverteDAO : DataAccessObject<QuestionOuverte>
 {
     private static readonly string INSERT =
-        "INSERT INTO QuestionOuverte(enonce,examId)" +
-        "VALUES(@enonce,@examId)";
+        @"INSERT INTO questionOuverte(enonce,examId)
+        VALUES(@enonce,@examId);
+        SELECT CAST(SCOPE_IDENTITY() AS int);";
 
     private static readonly string GET_ONE =
         "SELECT questionId,enonce,reponse,examId" +
@@ -95,7 +96,7 @@ public class QuestionOuverteDAO : DataAccessObject<QuestionOuverte>
         using (this.Connection)
         {
             Connection.Open();
-            SqlCommand command = new SqlCommand();
+            SqlCommand command = new SqlCommand(null,this.Connection);
             command.CommandText = INSERT;
             SqlParameter enonceQcmParameter = new SqlParameter("@enonce", SqlDbType.VarChar, -1);
             SqlParameter examIdQcmParameter = new SqlParameter("@examId", SqlDbType.Int);
@@ -107,11 +108,12 @@ public class QuestionOuverteDAO : DataAccessObject<QuestionOuverte>
             command.Parameters.Add(examIdQcmParameter);
 
             command.Prepare();
-            command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
             Connection.Close();
 
-            long id = getLastVal(LAST_VAL);
-            return findById(id);
+            //long id = getLastVal(LAST_VAL);
+            dto.QuestionId = id;
+            return dto;
         }
     }
 

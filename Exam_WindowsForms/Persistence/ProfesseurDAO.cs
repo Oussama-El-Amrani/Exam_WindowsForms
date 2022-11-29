@@ -3,26 +3,24 @@ using System.Data;
 using System.Data.SqlClient;
 using Exam_WindowsForms.Model;
 using Exam_WindowsForms.Persistence.util;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace Exam_WindowsForms.Persistence;
 
 public class ProfesseurDAO : DataAccessObject<Professeur>
 {
-    private static readonly string INSERT = "INSERT INTO Professeur(nomComplet,cne,email) " +
-                                         "VALUES(@nomComplet,@cne,@email)";
+    private static readonly string INSERT = @"INSERT INTO Professeur(nomComplet,cne,email) 
+                                         VALUES(@nomComplet,@cne,@email); 
+                                         SELECT CAST(SCOPE_IDENTITY() AS int);";
 
     private static readonly string GET_ONE = "SELECT professeur.professeurId,nomComplet,cne,email,examId,examNom,dateDebut,Duree " +
                                              "FROM professeur,Exam " +
                                              "WHERE professeur.professeurId = @id" +
-                                             " AND Exam.professeurId = professeur.professeurId";
+                                             " OR Exam.professeurId = professeur.professeurId";
 
     private static readonly string GET_ALL = "SELECT professeur.professeurId,nomComplet,cne,email,examId,examNom,dateDebut,Duree " +
                                              "FROM professeur,Exam " +
                                              "WHERE Exam.professeurId = professeur.professeurId";
-
-    private static readonly string LAST_VAL = "SELECT professeurId " +
-                                              "FROM Professeur " +
-                                              "WHERE professeurId = @@Identity";
     public ProfesseurDAO(SqlConnection cnx) : base(cnx)
     {
     }
@@ -97,8 +95,6 @@ public class ProfesseurDAO : DataAccessObject<Professeur>
                 
                 professeur.Exams.Add(exam);
             }
-
-            Connection.Close();
         }
         return professeurs;
     }
@@ -110,8 +106,8 @@ public class ProfesseurDAO : DataAccessObject<Professeur>
 
     public override Professeur create(Professeur dto)
     {
-        using (this.Connection)
-        {
+        //using (this.Connection)
+        //{
             Connection.Open();
             SqlCommand command = new SqlCommand(null, Connection);
             command.CommandText = INSERT;
@@ -125,12 +121,14 @@ public class ProfesseurDAO : DataAccessObject<Professeur>
             command.Parameters.Add(cneParameter);
             command.Parameters.Add(emailParameter);
             command.Prepare();
-            command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
             Connection.Close();
-            //
-            long id = getLastVal(LAST_VAL);
-            return this.findById(id);
-        }
+            //long id = getLastVal(LAST_VAL);
+            dto.ProfesseurId = id;
+        //}
+        //return this.findById(id);
+        return dto;
+
     }
 
     public override void delete(long id)

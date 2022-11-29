@@ -18,8 +18,8 @@ namespace Exam_WindowsForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
-            //DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
-            //SqlConnection connection = databaseConnectionManager.getConnection();
+            DatabaseConnectionManager databaseConnectionManager = new DatabaseConnectionManager();
+            SqlConnection connection = databaseConnectionManager.getConnection();
             //ProfesseurDAO professeurDao = new ProfesseurDAO(connection);
             //List<Professeur> professeurs = professeurDao.findAll(1);
             //professeurs.ForEach(x=> Console.WriteLine(x.NomComplet + x.Cne + x.Email + x.ProfesseurId));

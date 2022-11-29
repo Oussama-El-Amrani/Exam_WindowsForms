@@ -34,14 +34,14 @@
             this.textBoxNomComplet = new System.Windows.Forms.TextBox();
             this.textBoxCNE = new System.Windows.Forms.TextBox();
             this.labelNomCompletProf = new System.Windows.Forms.Label();
-            this.panelInscriptionProd = new System.Windows.Forms.Panel();
+            this.panelInscriptionProf = new System.Windows.Forms.Panel();
+            this.textBoxEmailProf = new System.Windows.Forms.TextBox();
             this.labelCNEProf = new System.Windows.Forms.Label();
-            this.buttonCreerCompte = new System.Windows.Forms.Button();
-            this.buttonValidationCrreationCompte = new System.Windows.Forms.Button();
             this.labelEmailProf = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonValidationCrreationCompte = new System.Windows.Forms.Button();
+            this.buttonCreerCompte = new System.Windows.Forms.Button();
             this.buttonCrrerExam = new System.Windows.Forms.Button();
-            this.panelInscriptionProd.SuspendLayout();
+            this.panelInscriptionProf.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelCreerCompteProf
@@ -93,19 +93,26 @@
             this.labelNomCompletProf.TabIndex = 6;
             this.labelNomCompletProf.Text = "Nom complet";
             // 
-            // panelInscriptionProd
+            // panelInscriptionProf
             // 
-            this.panelInscriptionProd.Controls.Add(this.textBox1);
-            this.panelInscriptionProd.Controls.Add(this.labelCNEProf);
-            this.panelInscriptionProd.Controls.Add(this.labelEmailProf);
-            this.panelInscriptionProd.Controls.Add(this.buttonValidationCrreationCompte);
-            this.panelInscriptionProd.Controls.Add(this.textBoxCNE);
-            this.panelInscriptionProd.Controls.Add(this.textBoxNomComplet);
-            this.panelInscriptionProd.Controls.Add(this.labelNomCompletProf);
-            this.panelInscriptionProd.Location = new System.Drawing.Point(47, 80);
-            this.panelInscriptionProd.Name = "panelInscriptionProd";
-            this.panelInscriptionProd.Size = new System.Drawing.Size(351, 309);
-            this.panelInscriptionProd.TabIndex = 4;
+            this.panelInscriptionProf.Controls.Add(this.textBoxEmailProf);
+            this.panelInscriptionProf.Controls.Add(this.labelCNEProf);
+            this.panelInscriptionProf.Controls.Add(this.labelEmailProf);
+            this.panelInscriptionProf.Controls.Add(this.buttonValidationCrreationCompte);
+            this.panelInscriptionProf.Controls.Add(this.textBoxCNE);
+            this.panelInscriptionProf.Controls.Add(this.textBoxNomComplet);
+            this.panelInscriptionProf.Controls.Add(this.labelNomCompletProf);
+            this.panelInscriptionProf.Location = new System.Drawing.Point(47, 80);
+            this.panelInscriptionProf.Name = "panelInscriptionProf";
+            this.panelInscriptionProf.Size = new System.Drawing.Size(351, 309);
+            this.panelInscriptionProf.TabIndex = 4;
+            // 
+            // textBoxEmailProf
+            // 
+            this.textBoxEmailProf.Location = new System.Drawing.Point(0, 208);
+            this.textBoxEmailProf.Name = "textBoxEmailProf";
+            this.textBoxEmailProf.Size = new System.Drawing.Size(351, 31);
+            this.textBoxEmailProf.TabIndex = 8;
             // 
             // labelCNEProf
             // 
@@ -116,24 +123,6 @@
             this.labelCNEProf.TabIndex = 5;
             this.labelCNEProf.Text = "cne";
             // 
-            // buttonCreerCompte
-            // 
-            this.buttonCreerCompte.Location = new System.Drawing.Point(47, 40);
-            this.buttonCreerCompte.Name = "buttonCreerCompte";
-            this.buttonCreerCompte.Size = new System.Drawing.Size(112, 34);
-            this.buttonCreerCompte.TabIndex = 7;
-            this.buttonCreerCompte.Text = "Crrer Compte";
-            this.buttonCreerCompte.UseVisualStyleBackColor = true;
-            // 
-            // buttonValidationCrreationCompte
-            // 
-            this.buttonValidationCrreationCompte.Location = new System.Drawing.Point(0, 275);
-            this.buttonValidationCrreationCompte.Name = "buttonValidationCrreationCompte";
-            this.buttonValidationCrreationCompte.Size = new System.Drawing.Size(112, 34);
-            this.buttonValidationCrreationCompte.TabIndex = 7;
-            this.buttonValidationCrreationCompte.Text = "Valider";
-            this.buttonValidationCrreationCompte.UseVisualStyleBackColor = true;
-            // 
             // labelEmailProf
             // 
             this.labelEmailProf.AutoSize = true;
@@ -143,12 +132,25 @@
             this.labelEmailProf.TabIndex = 8;
             this.labelEmailProf.Text = "Email";
             // 
-            // textBox1
+            // buttonValidationCrreationCompte
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 208);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(351, 31);
-            this.textBox1.TabIndex = 8;
+            this.buttonValidationCrreationCompte.Location = new System.Drawing.Point(0, 275);
+            this.buttonValidationCrreationCompte.Name = "buttonValidationCrreationCompte";
+            this.buttonValidationCrreationCompte.Size = new System.Drawing.Size(112, 34);
+            this.buttonValidationCrreationCompte.TabIndex = 7;
+            this.buttonValidationCrreationCompte.Text = "Valider";
+            this.buttonValidationCrreationCompte.UseVisualStyleBackColor = true;
+            this.buttonValidationCrreationCompte.Click += new System.EventHandler(this.buttonValidationCrreationCompte_Click);
+            // 
+            // buttonCreerCompte
+            // 
+            this.buttonCreerCompte.Location = new System.Drawing.Point(47, 40);
+            this.buttonCreerCompte.Name = "buttonCreerCompte";
+            this.buttonCreerCompte.Size = new System.Drawing.Size(112, 34);
+            this.buttonCreerCompte.TabIndex = 7;
+            this.buttonCreerCompte.Text = "Crrer Compte";
+            this.buttonCreerCompte.UseVisualStyleBackColor = true;
+            this.buttonCreerCompte.Click += new System.EventHandler(this.buttonCreerCompte_Click);
             // 
             // buttonCrrerExam
             // 
@@ -167,14 +169,15 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonCrrerExam);
             this.Controls.Add(this.buttonCreerCompte);
-            this.Controls.Add(this.panelInscriptionProd);
+            this.Controls.Add(this.panelInscriptionProf);
             this.Controls.Add(this.comboBoxListProfesseur);
             this.Controls.Add(this.ChoisirCompteProf);
             this.Controls.Add(this.labelCreerCompteProf);
             this.Name = "FormAuthProfesseurs";
             this.Text = "Authentification Professeur";
-            this.panelInscriptionProd.ResumeLayout(false);
-            this.panelInscriptionProd.PerformLayout();
+            this.Load += new System.EventHandler(this.FormAuthProfesseurs_Load);
+            this.panelInscriptionProf.ResumeLayout(false);
+            this.panelInscriptionProf.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,8 +191,8 @@
         private TextBox textBoxNomComplet;
         private TextBox textBoxCNE;
         private Label labelNomCompletProf;
-        private Panel panelInscriptionProd;
-        private TextBox textBox1;
+        private Panel panelInscriptionProf;
+        private TextBox textBoxEmailProf;
         private Label labelCNEProf;
         private Label labelEmailProf;
         private Button buttonValidationCrreationCompte;

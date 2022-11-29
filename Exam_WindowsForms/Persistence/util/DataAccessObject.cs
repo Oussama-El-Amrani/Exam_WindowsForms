@@ -24,18 +24,26 @@ public abstract class DataAccessObject <T> : DataTransferObject
         long key = 0;
         using (this.Connection)
         {
-            Connection.Open();
-            SqlCommand command = new SqlCommand(null, Connection);
-            command.CommandText = lastVal;
-            SqlDataReader sqlDataReader = command.ExecuteReader();
-            if (sqlDataReader.HasRows)
+            try
             {
-                while (sqlDataReader.Read())
+                Connection.Open();
+                SqlCommand command = new SqlCommand(null, Connection);
+                command.CommandText = lastVal;
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                if (sqlDataReader.HasRows)
                 {
-                    key = (long)sqlDataReader[0];
+                    while (sqlDataReader.Read())
+                    {
+                        key = (long)sqlDataReader.GetInt32(0);
+                        //key = (long)sqlDataReader[0];
+                    }
+                    Connection.Close();
                 }
             }
-            Connection.Close();
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
         return key;
     }

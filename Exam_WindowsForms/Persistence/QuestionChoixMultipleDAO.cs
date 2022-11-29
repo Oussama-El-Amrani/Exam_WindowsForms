@@ -24,8 +24,9 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
         "Proposition AS p " +
         "WHERE QCM.questionId = p.questionId ";
     private static readonly string INSERT =
-        "INSERT INTO Poposition(vrai,Contenu,questionId) " +
-        "VALUES(@vrai,@Contenu,@questionId)";
+        @"INSERT INTO QuestionChoixMultiple(enonce,nombrePoint,examId)
+        VALUES(@enonce,@nombrePoint,@examId);
+         SELECT CAST(SCOPE_IDENTITY() AS int);";
     private static readonly string LAST_VAL =
         "SELECT questionId " +
         "FROM QuestionChoixMultiple " +
@@ -127,7 +128,7 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
         using (this.Connection)
         {
             Connection.Open();
-            SqlCommand command = new SqlCommand();
+            SqlCommand command = new SqlCommand(null,this.Connection);
             command.CommandText = INSERT;
             SqlParameter enonceQcmParameter = new SqlParameter("@enonce",SqlDbType.VarChar,-1);
             SqlParameter nombrePoint = new SqlParameter("@nombrePoint", SqlDbType.Int);
@@ -142,11 +143,11 @@ public class QuestionChoixMultipleDAO : DataAccessObject<QuestionChoixMultiple>
             command.Parameters.Add(examIdQcmParameter);
 
             command.Prepare();
-            command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
             Connection.Close();
-
-            long id = getLastVal(LAST_VAL);
-            return findById(id);
+            dto.QuestionId = id;
+            //long id = getLastVal(LAST_VAL);
+            return dto;
         }
     }
 

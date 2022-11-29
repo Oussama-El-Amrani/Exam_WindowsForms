@@ -8,8 +8,9 @@ namespace Exam_WindowsForms.Persistence;
 public class ExamDAO : DataAccessObject<Exam>
 {
     private static readonly string INSERT =
-        "INSERT INTO Exam(examNom,dateDebut,Duree,professeurId)" +
-        "VALUES(@examNom,@dateDebut,@Duree,@professeurId)";
+        @"INSERT INTO Exam(examNom,dateDebut,Duree,professeurId)
+        VALUES(@examNom,@dateDebut,@Duree,@professeurId);
+        SELECT CAST(SCOPE_IDENTITY() AS int);";
     private static readonly string GET_ONE =
         @"SELECT ex.examId, examNom, dateDebut, Duree, professeurId,
           QCM.questionId AS QCMId, QO.questionId AS questionOuverteId,
@@ -31,10 +32,10 @@ public class ExamDAO : DataAccessObject<Exam>
           AND QO.examId = ex.examId
           AND ex.examId = e_ex.examId
           AND e_ex.etudiantId = e.etudiantId";
-    private static readonly string LAST_VAL =
-        "SELECT examId " +
-        "FROM Exam " +
-        "WHERE examId = @@Identity";
+    //private static readonly string LAST_VAL =
+    //    "SELECT examId " +
+    //    "FROM Exam " +
+    //    "WHERE examId = @@Identity";
     public ExamDAO(SqlConnection cnx) : base(cnx)
     {
     }
@@ -44,6 +45,7 @@ public class ExamDAO : DataAccessObject<Exam>
         Exam exam = new Exam();
         using (this.Connection)
         {
+            //if(Connection.)
             Connection.Open();
             SqlCommand command = new SqlCommand(null, Connection);
             command.CommandText = GET_ONE;
@@ -168,7 +170,7 @@ public class ExamDAO : DataAccessObject<Exam>
             SqlCommand command = new SqlCommand(null, this.Connection);
             command.CommandText = INSERT;
 
-            SqlParameter examNomParameter = new SqlParameter("@examNom", SqlDbType.Int);
+            SqlParameter examNomParameter = new SqlParameter("@examNom", SqlDbType.VarChar,100);
             SqlParameter dateDebutParameter = new SqlParameter("@dateDebut", SqlDbType.Date);
             SqlParameter dureeParameter = new SqlParameter("@Duree", SqlDbType.Int);
             SqlParameter professeurIdParameter = new SqlParameter("@professeurId", SqlDbType.Int);
@@ -183,10 +185,11 @@ public class ExamDAO : DataAccessObject<Exam>
             command.Parameters.Add(professeurIdParameter);
             command.Prepare();
             command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
             Connection.Close();
-            //
-            long id = getLastVal(LAST_VAL);
-            return this.findById(id);
+            dto.ExamId = id;
+            //long id = getLastVal(LAST_VAL);
+            return dto;
         }
     }
 

@@ -25,6 +25,7 @@ namespace Exam_WindowsForms.View
 
         private void buttonAuthProfesseur_Click(object sender, EventArgs e)
         {
+            //this.Hide();
             var formProfesseur = new FormAuthProfesseurs();
             formProfesseur.ShowDialog();
         }

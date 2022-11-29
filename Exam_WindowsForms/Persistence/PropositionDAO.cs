@@ -8,8 +8,9 @@ namespace Exam_WindowsForms.Persistence;
 public class PropositionDAO : DataAccessObject<Proposition>
 {
     private static readonly string INSERT =
-        "INSERT INTO Poposition(vrai,Contenu,questionId) " +
-        "VALUES(@vrai,@Contenu,@questionId)";
+        @"INSERT INTO Poposition(vrai,Contenu,questionId)
+        VALUES(@vrai,@Contenu,@questionId);
+         SELECT CAST(SCOPE_IDENTITY() AS int);";
 
     private static readonly string GET_ONE =
         "SELECT vrai,Contenu,QCM.questionId,propositionId " +
@@ -21,10 +22,10 @@ public class PropositionDAO : DataAccessObject<Proposition>
         "FROM QuestionChoixMultiple AS QCM,Proposition AS p " +
         "WHERE p.questionId = QCM.questionId";
 
-    private static readonly string LAST_VAL =
-        "SELECT propositionId " +
-        "FROM proposition " +
-        "WHERE propositionId = @@Identity";
+    //private static readonly string LAST_VAL =
+    //    "SELECT propositionId " +
+    //    "FROM proposition " +
+    //    "WHERE propositionId = @@Identity";
     public PropositionDAO(SqlConnection cnx) : base(cnx)
     {
     }
@@ -115,11 +116,11 @@ public class PropositionDAO : DataAccessObject<Proposition>
             command.Parameters.Add(questionIdParameter);
 
             command.Prepare();
-            command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
             Connection.Close();
-            //
-            long id = getLastVal(LAST_VAL);
-            return this.findById(id);
+            //long id = getLastVal(LAST_VAL);
+            dto.PropositionId = id;
+            return dto;
         }
     }
 
